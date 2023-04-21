@@ -9,7 +9,7 @@ import Viewuser from "./Components/Viewuser";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Appbar from "./Components/Appbar";
 import Adduser from "./Components/Adduser";
-import Register from './Components/Register';
+import Register from "./Components/Register";
 import Forgotpassword from "./Components/Forgotpassword";
 import Verification from "./Components/Verification";
 import Updatepassword from "./Components/Updatepassword";
@@ -19,18 +19,67 @@ function App() {
     <div className="App">
       <Appbar />
       <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/forgotpassword" element={<Forgotpassword />} />
-      <Route path="/verification" element={<Verification />} />
-      <Route path="/updatepassword" element={<Updatepassword />} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
-        <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
-        <Route path="/leads" element={<ProtectedRoute><Leads /></ProtectedRoute>} />
-        <Route path="/service" element={<ProtectedRoute><Service /></ProtectedRoute>} />
-        <Route path="/contact" element={<ProtectedRoute><Contact /></ProtectedRoute>} />
-        <Route path="/users/:id" element={<ProtectedRoute><Viewuser /></ProtectedRoute>} />
-        <Route path="/adduser" element={<ProtectedRoute><Adduser /></ProtectedRoute>} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgotpassword" element={<Forgotpassword />} />
+        <Route path="/verification" element={<Verification />} />
+        <Route path="/updatepassword" element={<Updatepassword />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/leads"
+          element={
+            <ProtectedRoute>
+              <Leads />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/service"
+          element={
+            <ProtectedRoute>
+              <Service />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <ProtectedRoute>
+              <Contact />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/:id"
+          element={
+            <ProtectedRoute>
+              <Viewuser />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/adduser"
+          element={
+            <ProtectedRoute>
+              <Adduser />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

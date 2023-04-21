@@ -11,31 +11,41 @@ function Dashboard() {
   const [contactcount, setcontactcount] = useState(0);
 
   useEffect(() => {
-    fetch(`${API}/userlist`, {
+    fetch(`${API}/user/`, {
+      method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
-      }
+        usertype: localStorage.getItem("usertype"),
+      },
     })
       .then((response) => response.json())
-      .then((result) => setusercount(result.length));
-    fetch(`${API}/lead`,{
+      .then((result) => {
+        setusercount(result.length);
+        // console.log(result);
+      });
+    fetch(`${API}/lead/`, {
+      method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
-      }
+        usertype: localStorage.getItem("usertype"),
+      },
     })
       .then((response) => response.json())
       .then((lead) => setleadcount(lead.length));
-    fetch(`${API}/service`,{
+    fetch(`${API}/service/`, {
+      method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
-      }
+        usertype: localStorage.getItem("usertype"),
+      },
     })
       .then((response) => response.json())
       .then((service) => setservicecount(service.length));
     fetch(`${API}/contact`, {
       headers: {
         "x-auth-token": localStorage.getItem("token"),
-      }
+        usertype: localStorage.getItem("usertype"),
+      },
     })
       .then((response) => response.json())
       .then((contact) => setcontactcount(contact.length));
@@ -43,7 +53,15 @@ function Dashboard() {
 
   return (
     <div>
-      <div className="d-flex flex-row justify-content-center align-items-center py-4 gap-4">
+      <span className="d-flex flex-column justify-content-start">
+        <span className="fs-2">Welcome</span>
+        <br />
+        <span className="fs-5 text-tertiary-emphasis">
+          {localStorage.getItem("firstname").toUpperCase()}{" "}
+          {localStorage.getItem("lastname").toUpperCase()}
+        </span>
+      </span>
+      <div className="d-flex flex-row flex-wrap justify-content-center align-items-center py-4 gap-4">
         {[
           {
             name: "Users",

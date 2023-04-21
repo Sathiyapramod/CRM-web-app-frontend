@@ -52,15 +52,15 @@ function Login() {
                 method: "POST",
                 body: JSON.stringify(loginContent),
                 headers: {
-                  "content-type": "application/json",
+                  "Content-type": "application/json",
                 },
               })
-                .then((response) => {
-                  response.json();
-                })
+                .then((response) => response.json())
                 .then((result) => {
-                  console.log(result);
                   localStorage.setItem("token", result.token);
+                  localStorage.setItem("usertype", result.usertype);
+                  localStorage.setItem("firstname", result.firstname);
+                  localStorage.setItem("lastname", result.lastname);
                   navigate("/dashboard");
                 });
             }}
@@ -68,12 +68,23 @@ function Login() {
           >
             Login
           </Button>
-          <Button variant="contained" onClick={()=>navigate("/forgotpassword")} className="col-4 mx-auto">
-            Forgot Password ? 
+          <Button
+            variant="contained"
+            onClick={() => navigate("/forgotpassword")}
+            className="col-4 mx-auto"
+          >
+            Forgot Password ?
           </Button>
           <div>
             {" "}
-            New to CRM, click here 👉🏼<Button onClick={()=>{navigate("/register")}}>Register</Button>
+            New to CRM, click here 👉🏼
+            <Button
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Register
+            </Button>
           </div>
         </Paper>
       </form>

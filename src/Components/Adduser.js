@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -15,56 +14,70 @@ function Adduser() {
   const [Extn, setExtn] = useState("");
 
   return (
-    <div>
-      <form>
-        <div className="d-flex flex-row gap-3 justify-content-center align-items-center ">
-          <label htmlFor="Firstname">Firstname</label>
-          <TextField
-            id="Firstname"
-            name="Firstname"
-            onChange={(event) => setFirstname(event.target.value)}
-          />
-        </div>
-        <div className="d-flex flex-row gap-3 justify-content-center align-items-center ">
-          <label htmlFor="Lastname">Lastname</label>
-          <TextField
-            id="Lastname"
-            name="Lastname"
-            onChange={(event) => setLastname(event.target.value)}
-          />
-        </div>
-        <div className="d-flex flex-row gap-3 justify-content-center align-items-center ">
-          <label htmlFor="Role">Role</label>
-          <RadioGroup defaultValue="Manager" row>
-            <FormControlLabel
-              value="Manager"
-              control={<Radio />}
-              label="Manager"
-              onChange={(event) => setRole(event.target.value)}
+    <div className="register-form shadow p-3">
+      <span className="fs-3">New User Registration</span>
+      <form className="pt-5">
+        <div className="d-flex flex-row justify-content-between align-items-center">
+          <div className="col-4 mx-auto form-floating">
+            <input
+              id="Firstname"
+              name="Firstname"
+              className="form-control"
+              onChange={(event) => setFirstname(event.target.value)}
             />
-            <FormControlLabel
-              value="Employee"
-              control={<Radio />}
-              label="Employee"
-              onChange={(event) => setRole(event.target.value)}
+            <label htmlFor="Firstname">Firstname</label>
+          </div>
+          <div className="col-4 mx-auto form-floating">
+            <input
+              id="Lastname"
+              className="form-control"
+              name="Lastname"
+              onChange={(event) => setLastname(event.target.value)}
             />
-            <FormControlLabel
-              value="Admin"
-              control={<Radio />}
-              label="Admin"
-              onChange={(event) => setRole(event.target.value)}
+            <label htmlFor="Lastname" className="form-label">
+              Lastname
+            </label>
+          </div>
+        </div>
+        <br />
+        <div className="d-flex flex-row justify-content-between align-items-center">
+          <div className="col-4 mx-auto form-floating">
+            <select
+              className="form-select fs-6"
+              defaultValue="None"
+              onChange={(event) => {
+                setRole(event.target.value);
+              }}
+              id="floatingLabel"
+            >
+              <option defaultValue="None">None</option>
+              <option defaultValue="employee">employee</option>
+              <option defaultValue="manager">manager</option>
+              {localStorage.getItem("usertype") === "admin" ? (
+                <option defaultValue="admin">admin</option>
+              ) : (
+                ""
+              )}
+            </select>
+            <label htmlFor="Role" className="form-label fs-6">
+              Role
+            </label>
+          </div>
+
+          <div className="col-4 mx-auto form-floating">
+            <input
+              id="Extension"
+              name="Extension"
+              className="form-control"
+              onChange={(event) => setExtn(event.target.value)}
             />
-          </RadioGroup>
+            <label htmlFor="Extension">Extension</label>
+          </div>
         </div>
-        <div className="d-flex flex-row gap-3 justify-content-center align-items-center ">
-          <label htmlFor="Extn">Extension</label>
-          <TextField
-            id="Extension"
-            name="Extension"
-            onChange={(event) => setExtn(event.target.value)}
-          />
-        </div>
+        <br />
         <Button
+          color="secondary"
+          variant="contained"
           value="Submit"
           onClick={() => {
             const newUser = {
@@ -78,13 +91,13 @@ function Adduser() {
               body: JSON.stringify(newUser),
               headers: {
                 "Content-type": "application/json",
-                "x-auth-token":localStorage.getItem("token")
+                "x-auth-token": localStorage.getItem("token"),
               },
             })
               .then((response) => response.json())
               .then(() => {
                 alert("User Added Successfully");
-                navigate("/")
+                navigate("/");
               });
           }}
         >

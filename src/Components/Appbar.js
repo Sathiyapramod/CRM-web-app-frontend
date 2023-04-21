@@ -31,12 +31,19 @@ export default function Appbar() {
             <Button color="inherit">HOME</Button>
           </Link>
           <Link to="/adduser" style={LinkStyling}>
-            <Button color="inherit">Add User</Button>
+            {localStorage.getItem("usertype") !== "employee" && (
+              <Button color="inherit">Add User</Button>
+            )}
           </Link>
-          <Button color="inherit" onClick={()=>{
-            localStorage.clear();
-            window.location.href="/";
-          }}>Logout</Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              localStorage.clear();
+              window.location.href = "/";
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

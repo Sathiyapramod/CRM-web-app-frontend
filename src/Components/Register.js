@@ -24,87 +24,83 @@ function Register() {
           elevation={6}
           className="d-flex flex-column mx-auto gap-4 my-5"
         >
-          <div className="fs-2">Login Details</div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">Username</label>
-            <div className="col-8">
-              <input
-                type="text"
-                className="form-control me-2"
-                onChange={(event) => setUsername(event.target.value)}
-              />
-            </div>
+          <div className="fs-2">User Registration</div>
+          <div className="col-5 mx-auto form-floating">
+            <input
+              type="text"
+              className="form-control me-2"
+              id="floatingLabel"
+              onChange={(event) => setUsername(event.target.value)}
+            />
+            <label className="form-label" htmlFor="floatingLabel">
+              Username
+            </label>
           </div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">First Name</label>
-            <div className="col-8">
-              <input
-                type="text"
-                className="form-control me-2"
-                onChange={(event) => setFirstname(event.target.value)}
-              />
-            </div>
+          <div className="col-5 mx-auto form-floating">
+            <input
+              type="text"
+              className="form-control me-2"
+              id="floatingLabel"
+              onChange={(event) => setFirstname(event.target.value)}
+            />
+            <label htmlFor="floatingLabel" className="form-label">
+              First Name
+            </label>
           </div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">Last Name</label>
-            <div className="col-8">
-              <input
-                type="text"
-                className="form-control me-2"
-                onChange={(event) => setLastname(event.target.value)}
-              />
-            </div>
+          <div className="col-5 mx-auto form-floating">
+            <input
+              type="text"
+              className="form-control me-2"
+              id="floatingLabel"
+              onChange={(event) => setLastname(event.target.value)}
+            />
+            <label className="form-label" htmlFor="floatingLabel">
+              Last Name
+            </label>
           </div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">Email-Id</label>
-            <div className="col-8">
-              <input
-                type="email"
-                className="form-control me-2"
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            </div>
+          <div className="col-5 mx-auto form-floating">
+            <input
+              type="email"
+              id="floatingLabel"
+              className="form-control me-2"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <label className="form-label" htmlFor="floatingLabel">
+              Email-Id
+            </label>
           </div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">Role</label>
-            <div className="col">
-              <div>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="manager"
-                    control={<Radio />}
-                    label="Manager"
-                    onChange={(event) => setRole(event.target.value)}
-                  />
-                  <FormControlLabel
-                    value="employee"
-                    control={<Radio />}
-                    label="Employee"
-                    onChange={(event) => setRole(event.target.value)}
-                  />
-                  <FormControlLabel
-                    value="admin"
-                    control={<Radio />}
-                    label="Admin"
-                    onChange={(event) => setRole(event.target.value)}
-                  />
-                </RadioGroup>
-              </div>
-            </div>
+          <div className="col-5 mx-auto form-floating">
+            <select
+              className="form-select"
+              defaultValue="None"
+              onChange={(event) => {
+                setRole(event.target.value);
+              }}
+              id="floatingLabel"
+            >
+              <option defaultValue="None">None</option>
+              <option defaultValue="employee">employee</option>
+              <option defaultValue="manager">manager</option>
+              {localStorage.getItem("usertype") === "admin" ? (
+                <option defaultValue="admin">admin</option>
+              ) : (
+                ""
+              )}
+            </select>
+            <label className="form-label" htmlFor="floatingLabel">
+              Select Role
+            </label>
           </div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">Password</label>
-            <div className="col-8">
-              <input
-                type="password"
-                className="form-control me-2"
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </div>
+          <div className="col-5 mx-auto form-floating">
+            <input
+              type="password"
+              id="floatingLabel"
+              className="form-control me-2"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <label className="form-label" htmlFor="floatingLabel">
+              Password
+            </label>
           </div>
           <Button
             variant="contained"
