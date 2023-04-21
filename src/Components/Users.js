@@ -17,7 +17,7 @@ function Users() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const getUsers = () => {
-    fetch(`${API}/userlist`, {
+    fetch(`${API}/user`, {
       method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
@@ -33,8 +33,8 @@ function Users() {
   useEffect(() => getUsers(), []);
   return (
     <div>
-      {users.length > 0 ? (
-        <Paper sx={{ width: 950 }} className="mx-auto mt-5">
+      {users.length > 0 && (
+        <Paper sx={{ width: 950 }} className="mx-auto mt-5 text-uppercase">
           <TableContainer>
             <Table sx={{ minWidth: 300 }}>
               <TableHead>
@@ -55,9 +55,9 @@ function Users() {
                   return (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>{user.Firstname}</TableCell>
-                      <TableCell>{user.Lastname}</TableCell>
-                      <TableCell>{user.Role}</TableCell>
+                      <TableCell>{user.firstname}</TableCell>
+                      <TableCell>{user.lastname}</TableCell>
+                      <TableCell>{user.usertype}</TableCell>
                       <TableCell>
                         <Button
                           color="primary"
@@ -83,13 +83,6 @@ function Users() {
             </Table>
           </TableContainer>
         </Paper>
-      ) : (
-        <div className="d-flex flex-column justify-content-center align-items-center">
-          <br />
-          <span>Content Loading </span>
-          <br />
-          <CircularProgress thickness={4.5} size="5rem" />
-        </div>
       )}
     </div>
   );

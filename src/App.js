@@ -16,7 +16,7 @@ import Updatepassword from "./Components/Updatepassword";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-light">
       <Appbar />
       <Routes>
         <Route path="/" element={<Login />} />

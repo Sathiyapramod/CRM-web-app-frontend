@@ -53,7 +53,7 @@ function Dashboard() {
 
   return (
     <div>
-      <span className="d-flex flex-column justify-content-start">
+      <span className="mx-auto">
         <span className="fs-2">Welcome</span>
         <br />
         <span className="fs-5 text-tertiary-emphasis">
@@ -61,7 +61,7 @@ function Dashboard() {
           {localStorage.getItem("lastname").toUpperCase()}
         </span>
       </span>
-      <div className="d-flex flex-row flex-wrap justify-content-center align-items-center py-4 gap-4">
+      <div className="container-fluid d-flex flex-row flex-wrap justify-content-center align-items-center py-4 gap-4">
         {[
           {
             name: "Users",
@@ -85,7 +85,7 @@ function Dashboard() {
           },
         ].map((element, index) => {
           return (
-            <Paper sx={{ width: 250, height: 150 }} elevation={6} key={index}>
+            <Paper sx={{ width: 350, height: 150 }} elevation={6} key={index}>
               <div className="fs-2">{element.name}</div>
               <div className="fs-2">{element.count}</div>
               <span>

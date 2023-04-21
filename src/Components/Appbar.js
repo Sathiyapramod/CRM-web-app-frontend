@@ -27,8 +27,8 @@ export default function Appbar() {
             WELCOME TO CRM app
           </Typography>
           <Button color="inherit">Login</Button>
-          <Link to="/" style={LinkStyling}>
-            <Button color="inherit">HOME</Button>
+          <Link to="/dashboard" style={LinkStyling}>
+            <Button color="inherit">DASHBOARD</Button>
           </Link>
           <Link to="/adduser" style={LinkStyling}>
             {localStorage.getItem("usertype") !== "employee" && (
