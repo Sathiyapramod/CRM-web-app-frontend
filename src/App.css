@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  min-height:100vh;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -33,13 +33,18 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.register-form{
-  height:auto;
-  width:50rem;
+.register-form {
+  height: auto;
+  width: 50rem;
   margin-inline: auto;
+}
+
+.graph-template {
+  width: 50%;
 }

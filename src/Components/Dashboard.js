@@ -3,6 +3,7 @@ import { Paper } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { API } from "../General/General";
+import Usertable from "./DashboardContent/Usertable";
 
 function Dashboard() {
   const [usercount, setusercount] = useState(0);
@@ -96,6 +97,10 @@ function Dashboard() {
             </Paper>
           );
         })}
+      </div>
+      <div className="d-flex flex-row justify-content-center align-items-center gap-5 p-1">
+        <Usertable />
+        <Usertable />
       </div>
     </div>
   );
