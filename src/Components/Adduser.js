@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import RadioGroup from "@mui/material/RadioGroup";
-import Radio from "@mui/material/Radio";
-import FormControlLabel from "@mui/material/FormControlLabel";
+
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 import { API } from "../General/General";
 
 function Adduser() {
@@ -12,6 +13,20 @@ function Adduser() {
   const [Lastname, setLastname] = useState("");
   const [Role, setRole] = useState("");
   const [Extn, setExtn] = useState("");
+
+  const [modalOpener, setModal] = useState(false);
+  const handleClose = () => setModal(false);
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
     <div className="register-form shadow p-3">
@@ -86,6 +101,7 @@ function Adduser() {
               Role,
               Extn,
             };
+            setModal(true);
             fetch(`${API}/adduser`, {
               method: "POST",
               body: JSON.stringify(newUser),
@@ -103,6 +119,18 @@ function Adduser() {
         >
           CREATE
         </Button>
+        <Modal
+          open={modalOpener}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={modalStyle}>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              User Created Successfully !!!
+            </Typography>
+          </Box>
+        </Modal>
         <Button onClick={() => navigate(-1)} variant="contained">
           Go Back
         </Button>
