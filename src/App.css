@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+:root {
+  --primary-ff: 'Lato', sans-serif;
+}
+
+* {
+  font-family: var(--primary-ff);
+}
+
 .App {
   text-align: center;
   min-height: 100vh;
@@ -39,12 +49,77 @@
   }
 }
 
+.main-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .register-form {
   height: auto;
   width: 50rem;
   margin-inline: auto;
 }
 
+.crm-content {
+  min-height: 100vh;
+  padding: 1rem 0 5rem 0;
+}
+
+
 .graph-template {
   width: 50%;
+}
+
+.footer>span {
+  margin-inline: auto;
+  padding: 1rem;
+  font-family: var(--footer-ff);
+  font-size: 2.5rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.copyrights {
+  font-size: large;
+  font-weight: lighter;
+}
+
+.responsive-buttons:hover {
+  transform: scale(1.2);
+}
+
+.menu-links {
+  text-decoration: none;
+  color: black;
+  font-family: var(--primary-ff);
+  font-size: 1.2rem;
+}
+
+@media screen and (max-width:1200px) and (min-width:150px) {
+  .footer>span {
+    margin-inline: auto;
+    padding: 0.5rem;
+    font-family: var(--footer-ff);
+    font-size: 2rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .external-links {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
 }

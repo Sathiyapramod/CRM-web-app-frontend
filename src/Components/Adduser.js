@@ -103,6 +103,9 @@ function Adduser() {
         >
           CREATE
         </Button>
+        <Button onClick={() => navigate(-1)} variant="contained">
+          Go Back
+        </Button>
       </form>
     </div>
   );

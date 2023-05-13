@@ -12,7 +12,7 @@ function Dashboard() {
   const [contactcount, setcontactcount] = useState(0);
 
   useEffect(() => {
-    fetch(`${API}/user/`, {
+    fetch(`${API}/user`, {
       method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
@@ -62,32 +62,40 @@ function Dashboard() {
           {localStorage.getItem("lastname").toUpperCase()}
         </span>
       </span>
-      <div className="container-fluid d-flex flex-row flex-wrap justify-content-center align-items-center py-4 gap-4">
+      <div className="container d-flex flex-row flex-wrap justify-content-between align-items-center py-4 gap-4">
         {[
           {
             name: "Users",
             count: usercount,
             data: { link: "/users", button: "GET Users" },
+            color: "#EF7C8E",
           },
           {
             name: "Leads",
             count: leadcount,
             data: { link: "/leads", button: "GET Leads" },
+            color: "#FAE8E0",
           },
           {
             name: "Service Requests",
             count: servicecount,
             data: { link: "/service", button: "GET Requests" },
+            color: "#B6E2D3",
           },
           {
             name: "Contacts",
             count: contactcount,
             data: { link: "/contact", button: "GET Contacts" },
+            color: "#D8A7B1",
           },
         ].map((element, index) => {
           return (
-            <Paper sx={{ width: 350, height: 150 }} elevation={6} key={index}>
-              <div className="fs-2">{element.name}</div>
+            <Paper
+              sx={{ width: 250, height: 150, backgroundColor: element.color }}
+              elevation={6}
+              key={index}
+            >
+              <span className="fs-3">{element.name}</span>
               <div className="fs-2">{element.count}</div>
               <span>
                 <Link to={element.data.link}>
@@ -100,7 +108,7 @@ function Dashboard() {
       </div>
       <div className="d-flex flex-row justify-content-center align-items-center gap-5 p-1">
         <Usertable />
-        <Usertable />
+        
       </div>
     </div>
   );

@@ -1,80 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
 import Button from "@mui/material/Button";
-import { API } from "../General/General";
+import TextField from "@mui/material/TextField";
 
-function Login() {
+function Login({ setUsername, setPassword, userLogin }) {
   const navigate = useNavigate();
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
   return (
-    <div>
+    <div className="main-login">
       <form>
         <Paper
-          sx={{ width: 700, padding: 5 }}
+          sx={{ width: 550, padding: "1rem 0 1rem 0" }}
           elevation={6}
-          className="d-flex flex-column mx-auto gap-4 my-5"
+          className="d-flex flex-column gap-4 my-5 h-100 mx-auto"
         >
-          <div className="fs-2">Login Details</div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">Username</label>
-            <div className="col-8">
-              <input
-                type="text"
-                className="form-control me-2"
-                onChange={(event) => setUsername(event.target.value)}
-              />
-            </div>
-          </div>
-          <div className="d-flex flex-row justify-content-center align-items-center gap-3 mx-auto">
-            <label className="form-label">Password</label>
-            <div className="col-8">
-              <input
-                type="password"
-                className="form-control me-2"
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </div>
-          </div>
-          <Button
-            variant="contained"
-            className="col-2 mx-auto"
-            onClick={() => {
-              const loginContent = {
-                username: username,
-                password: password,
-              };
-              // console.log(loginContent);
-              fetch(`${API}/login`, {
-                method: "POST",
-                body: JSON.stringify(loginContent),
-                headers: {
-                  "Content-type": "application/json",
-                },
-              })
-                .then((response) => response.json())
-                .then((result) => {
-                  localStorage.setItem("token", result.token);
-                  localStorage.setItem("usertype", result.usertype);
-                  localStorage.setItem("firstname", result.firstname);
-                  localStorage.setItem("lastname", result.lastname);
-                  navigate("/dashboard");
-                });
-            }}
-            value="submit"
-          >
-            Login
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => navigate("/forgotpassword")}
-            className="col-4 mx-auto"
-          >
-            Forgot Password ?
-          </Button>
+          <span className="fs-2">Login Details</span>
+          <span>
+            <TextField
+              type="text"
+              variant="standard"
+              label="Username"
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </span>
+
+          <span>
+            <TextField
+              type="password"
+              variant="standard"
+              label="Password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </span>
+          <span className="d-flex flex-row justify-content-center align-items-center gap-3 py-2">
+            <Button variant="contained" onClick={userLogin} value="submit">
+              Login
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => navigate("/forgotpassword")}
+            >
+              Forgot Password ?
+            </Button>
+          </span>
           <div>
             {" "}
             New to CRM, click here 👉🏼

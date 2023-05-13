@@ -5,96 +5,122 @@ import { Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { API } from "../General/General";
 import Button from "@mui/material/Button";
+import Radio from "@mui/material/Radio";
+import FormControl from "@mui/material/FormControl";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Person3Icon from "@mui/icons-material/Person3";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 
 function Viewuser() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [user, setUser] = useState({});
-  useEffect(() => {
-    fetch(`${API}/userlist/${id}`, {
+
+  const getUserDetails = () => {
+    fetch(`${API}/user/userlist/${id}`, {
       method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
+        usertype: localStorage.getItem("usertype"),
       },
     })
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result);
         setUser(result);
       });
-  }, [id]);
-  //   console.log(user);
+  };
+
+  useEffect(() => getUserDetails(), [id]);
   return (
     <div>
-      <div className="d-flex flex-row justify-content-center align-items-center">
-        <Paper sx={{ width: 350 }} className="mx-auto mt-5 p-3">
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <span className="d-flex flex-row justify-content-center align-items-center gap-2">
-              <label>First Name:</label>
-              <label>{user.Firstname}</label>
-            </span>
-            <span className="d-flex flex-row justify-content-center align-items-center gap-2">
-              <label>Last Name:</label>
-              <label>{user.Lastname}</label>
-            </span>
-            <span className="d-flex flex-row justify-content-center align-items-center gap-2">
-              <label>Employee Role:</label>
-              <label>{user.Role}</label>
-            </span>
-            <span>
-              <Button
-                onClick={() => {
-                  navigate("/users");
-                }}
-              >
-                Go Back
-              </Button>
-            </span>
-          </div>
+      <div className="d-flex flex-row justify-content-center align-items-center gap-3 mt-5">
+        <Paper className="shadow d-flex flex-column justify-content-start align-items-start gap-3 p-3">
+          <span>
+            <Person3Icon /> <label>{user.firstname}</label>
+          </span>
+          <span>
+            <PermIdentityIcon /> <label>{user.lastname}</label>
+          </span>
+          <span>
+            <AssignmentIcon /> <label>{user.usertype}</label>
+          </span>
+          <span>
+            <MarkEmailReadIcon /> <label>{user.email}</label>
+          </span>
+          <span>
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate("/users");
+              }}
+            >
+              Go Back
+            </Button>
+          </span>
         </Paper>
         <Edituser user={user} />
       </div>
     </div>
   );
   function Edituser({ user }) {
-    const [Firstname, setFirstname] = useState(user.Firstname);
-    const [Lastname, setLastname] = useState(user.Lastname);
-    const [Role, setRole] = useState(user.Role);
+    console.log(user);
+    const [Firstname, setFirstname] = useState(user.firstname);
+    const [Lastname, setLastname] = useState(user.lastname);
+    const [Role, setRole] = useState(user.usertype);
     const [Extn, setExtn] = useState(user.Extn);
-    // console.log(Firstname, Lastname, Role, Extn);
     return (
-      <Paper sx={{ width: 450 }}>
-        <div className="d-flex flex-column">
-          <div className="d-flex flex-row align-items-center justify-content-center">
-            <label className="col-5">First Name</label>
-            <div className="col-6">
-              <TextField
-                value={Firstname}
-                variant="outlined"
-                onChange={(event) => setFirstname(event.target.value)}
-              />
-            </div>
+      <Paper sx={{ width: 450, padding: 3 }}>
+        <span className="fs-4">Edit User Details</span>
+        <br />
+        <br />
+        <div className="d-flex flex-column justify-content-center align-items-center gap-2">
+          <div>
+            <TextField
+              variant="outlined"
+              defaultValue={Firstname}
+              onChange={(event) => setFirstname(event.target.value)}
+            />
           </div>
-          <div className="d-flex flex-row align-items-center justify-content-center">
-            <label className="col-5">Last Name</label>
-            <div className="col-6">
-              <TextField
-                value={Lastname}
-                variant="outlined"
-                onChange={(event) => setLastname(event.target.value)}
+          <div>
+            <TextField
+              value={Lastname}
+              variant="outlined"
+              onChange={(event) => setLastname(event.target.value)}
+            />
+          </div>{" "}
+          <FormControl>
+            <RadioGroup
+              row
+              name="user-role-selection-edit"
+              defaultValue={Role}
+              onChange={(event) => {
+                setRole(event.target.value);
+              }}
+            >
+              <FormControlLabel
+                value="manager"
+                control={<Radio />}
+                label="manager"
               />
-            </div>{" "}
-          </div>
-          <div className="d-flex flex-row align-items-center justify-content-center">
-            <label className="col-5">Role</label>
-            <div className="col-6">
-              <TextField
-                value={Role}
-                variant="outlined"
-                onChange={(event) => setRole(event.target.value)}
+              <FormControlLabel
+                value="employee"
+                control={<Radio />}
+                label="employee"
               />
-            </div>{" "}
-          </div>
+              {localStorage.getItem("usertype") !== "admin" && (
+                <FormControlLabel
+                  disabled
+                  value="admin"
+                  control={<Radio />}
+                  label="admin"
+                />
+              )}
+            </RadioGroup>
+          </FormControl>
+          <div className="col-6"></div>{" "}
           <div className="d-flex flex-row align-items-center justify-content-center">
             <label className="col-5">Extension</label>
             <div className="col-6">
@@ -120,7 +146,7 @@ function Viewuser() {
                   body: JSON.stringify(updatedUser),
                   headers: {
                     "Content-type": "application/json",
-                    "x-auth-token":localStorage.getItem("token")
+                    "x-auth-token": localStorage.getItem("token"),
                   },
                 })
                   .then((response) => {

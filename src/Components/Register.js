@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Paper, RadioGroup } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
+import { Paper } from "@mui/material";
 import Button from "@mui/material/Button";
 import { API } from "../General/General";
 
@@ -15,6 +13,33 @@ function Register() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const Signup = () => {
+    const loginContent = {
+      Firstname: Firstname,
+      Lastname: Lastname,
+      Role: Role,
+      email: email,
+      username: username,
+      password: password,
+    };
+    // console.log(loginContent);
+    fetch(`${API}/login`, {
+      method: "POST",
+      body: JSON.stringify(loginContent),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        response.json();
+      })
+      .then((result) => {
+        console.log(result);
+        alert("User Added Successfully");
+        navigate("/");
+      });
+  };
 
   return (
     <div>
@@ -29,10 +54,10 @@ function Register() {
             <input
               type="text"
               className="form-control me-2"
-              id="floatingLabel"
+              id="username"
               onChange={(event) => setUsername(event.target.value)}
             />
-            <label className="form-label" htmlFor="floatingLabel">
+            <label className="form-label" htmlFor="username">
               Username
             </label>
           </div>
@@ -40,10 +65,10 @@ function Register() {
             <input
               type="text"
               className="form-control me-2"
-              id="floatingLabel"
+              id="firstname"
               onChange={(event) => setFirstname(event.target.value)}
             />
-            <label htmlFor="floatingLabel" className="form-label">
+            <label htmlFor="firstname" className="form-label">
               First Name
             </label>
           </div>
@@ -51,21 +76,21 @@ function Register() {
             <input
               type="text"
               className="form-control me-2"
-              id="floatingLabel"
+              id="lastname"
               onChange={(event) => setLastname(event.target.value)}
             />
-            <label className="form-label" htmlFor="floatingLabel">
+            <label className="form-label" htmlFor="lastname">
               Last Name
             </label>
           </div>
           <div className="col-5 mx-auto form-floating">
             <input
               type="email"
-              id="floatingLabel"
+              id="email"
               className="form-control me-2"
               onChange={(event) => setEmail(event.target.value)}
             />
-            <label className="form-label" htmlFor="floatingLabel">
+            <label className="form-label" htmlFor="email">
               Email-Id
             </label>
           </div>
@@ -76,7 +101,7 @@ function Register() {
               onChange={(event) => {
                 setRole(event.target.value);
               }}
-              id="floatingLabel"
+              id="userrole"
             >
               <option defaultValue="None">None</option>
               <option defaultValue="employee">employee</option>
@@ -87,53 +112,37 @@ function Register() {
                 ""
               )}
             </select>
-            <label className="form-label" htmlFor="floatingLabel">
+            <label className="form-label" htmlFor="userrole">
               Select Role
             </label>
           </div>
           <div className="col-5 mx-auto form-floating">
             <input
               type="password"
-              id="floatingLabel"
+              id="password"
               className="form-control me-2"
               onChange={(event) => setPassword(event.target.value)}
             />
-            <label className="form-label" htmlFor="floatingLabel">
+            <label className="form-label" htmlFor="password">
               Password
             </label>
           </div>
           <Button
             variant="contained"
             className="col-2 mx-auto"
-            onClick={() => {
-              const loginContent = {
-                Firstname: Firstname,
-                Lastname: Lastname,
-                Role: Role,
-                email: email,
-                username: username,
-                password: password,
-              };
-              // console.log(loginContent);
-              fetch(`${API}/login`, {
-                method: "POST",
-                body: JSON.stringify(loginContent),
-                headers: {
-                  "Content-type": "application/json",
-                },
-              })
-                .then((response) => {
-                  response.json();
-                })
-                .then((result) => {
-                  console.log(result);
-                  alert("User Added Successfully");
-                  navigate("/");
-                });
-            }}
+            onClick={() => Signup()}
             value="submit"
           >
             REGISTER
+          </Button>
+          <Button
+            variant="contained"
+            className="col-2 mx-auto"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Cancel
           </Button>
         </Paper>
       </form>
