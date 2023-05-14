@@ -14,6 +14,7 @@ function Login({ setUsername, setPassword, userLogin }) {
           elevation={6}
           className="d-flex flex-column gap-4 my-5 h-100 mx-auto"
         >
+          <span className="fs-1 fw-bolder fst-bold scale-1"> Welcome to CRM App </span>
           <span className="fs-2">Login Details</span>
           <span>
             <TextField
