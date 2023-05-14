@@ -10,7 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { API } from "../General/General";
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Modal from "@mui/material/Modal";
 
 function Leads() {
   const navigate = useNavigate();
@@ -31,8 +33,12 @@ function Leads() {
 
   useEffect(() => getLeads(), []);
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [open, setOpen] = useState(false);
+  const [currentLead, setCurrentLead] = useState({});
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -41,6 +47,18 @@ function Leads() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    bgcolor: "background.paper",
+    border: "2px solid #132850",
+    boxShadow: 24,
+    p: 4,
   };
 
   return (
@@ -57,7 +75,7 @@ function Leads() {
               <TableHead>
                 <TableRow>
                   <TableCell
-                    colSpan={6}
+                    colSpan={7}
                     className="bg-light fw-bolder fs-4"
                     align="center"
                   >
@@ -83,6 +101,9 @@ function Leads() {
                   <TableCell align="center" className="fw-bold">
                     Lead Source
                   </TableCell>
+                  <TableCell align="center" className="fw-bold">
+                    Actions
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -97,6 +118,54 @@ function Leads() {
                         <TableCell align="center">{leads.phone}</TableCell>
                         <TableCell align="center">{leads.email}</TableCell>
                         <TableCell align="center">{leads.leadsource}</TableCell>
+                        <TableCell align="center">
+                          <Button
+                            variant="standard"
+                            onClick={() => {
+                              handleOpen();
+                              setCurrentLead(leads);
+                            }}
+                          >
+                            <MoreVertIcon />
+                          </Button>
+                          <Modal open={open} onClose={handleClose}>
+                            <Box sx={modalStyle}>
+                              <span className="d-flex flex-row justify-content-between align-items-center">
+                                <TextField
+                                  label="LeadName"
+                                  defaultValue={currentLead.leadname}
+                                  aria-readonly
+                                />
+                                <TextField
+                                  label="Phone"
+                                  defaultValue={currentLead.phone}
+                                  aria-readonly
+                                />
+                              </span>
+                              <br />
+                              <span className="d-flex flex-row justify-content-between align-items-center">
+                                <TextField
+                                  label="Email"
+                                  defaultValue={currentLead.email}
+                                  aria-readonly
+                                />
+                                <TextField
+                                  label="Lead Source"
+                                  defaultValue={currentLead.leadsource}
+                                  aria-readonly
+                                />
+                              </span>
+                              <br />
+                              <span className="d-flex flex-row justify-content-center align-items-center">
+                                <TextField
+                                  label="Company"
+                                  defaultValue={currentLead.company}
+                                  aria-readonly
+                                />
+                              </span>
+                            </Box>
+                          </Modal>
+                        </TableCell>
                       </TableRow>
                     );
                   })}

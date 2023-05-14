@@ -5,7 +5,6 @@ import Table from "@mui/material/Table";
 import Divider from "@mui/material/Divider";
 import CircularProgress from "@mui/material/CircularProgress";
 import {
-  Paper,
   TableBody,
   TableCell,
   TableContainer,
@@ -27,7 +26,7 @@ function Users() {
     })
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result);
+        console.log(result);
         setUsers(result);
       });
   };
