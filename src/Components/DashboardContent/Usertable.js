@@ -50,9 +50,9 @@ function Usertable() {
   };
 
   return (
-    <div className="graph-template">
+    <div>
       <div className="card">
-        <div className="card-header fw-bold">Users Profile </div>
+        <div className="card-header fw-bold fs-3">Users Profile </div>
         <div className="card-body">
           <PieChart width={400} height={400}>
             <Pie

@@ -10,7 +10,7 @@ function Login({ setUsername, setPassword, userLogin }) {
     <div className="main-login">
       <form>
         <Paper
-          sx={{ width: 550, padding: "1rem 0 1rem 0" }}
+          sx={{ width: { xs: 350, sm: 550 }, padding: "1rem 0 1rem 0" }}
           elevation={6}
           className="d-flex flex-column gap-4 my-5 h-100 mx-auto"
         >
