@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { API } from "../General/General";
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
@@ -12,7 +13,7 @@ import {
 
 function Contact() {
   const [contacts, setContacts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(`${API}/contact/`, {
       headers: {
@@ -25,7 +26,7 @@ function Contact() {
         // console.log(result);
         setContacts(result);
       });
-  }, [contacts]);
+  }, []);
 
   return (
     <div>
@@ -73,6 +74,16 @@ function Contact() {
                 })}
               </TableBody>
             </Table>
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              Go Back
+            </Button>
           </TableContainer>
         </div>
       </div>

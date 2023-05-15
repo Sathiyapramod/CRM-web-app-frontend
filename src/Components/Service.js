@@ -12,12 +12,12 @@ import {
   TableRow,
 } from "@mui/material";
 import { API } from "../General/General";
-import makeServiceCount from "./Dashboard";
 
 function Service() {
   const navigate = useNavigate();
   const [services, setService] = useState([]);
   const [status, setStatus] = useState("created");
+
   const getServices = () => {
     fetch(`${API}/service`, {
       method: "GET",
@@ -29,11 +29,10 @@ function Service() {
       .then((response) => response.json())
       .then((result) => {
         setService(result);
-        makeServiceCount(result.length);
       });
   };
 
-  useEffect(() => getServices(), []);
+  useEffect(() => getServices(), [services, status]);
   return (
     <div>
       {services ? (
@@ -79,9 +78,9 @@ function Service() {
                   return (
                     <TableRow key={index}>
                       <TableCell align="center">{index + 1}</TableCell>
-                      <TableCell align="center">{user.RequestName}</TableCell>
+                      <TableCell align="center">{user.name}</TableCell>
                       <TableCell align="center">{user.Createdby}</TableCell>
-                      <TableCell align="center">{user.Status}</TableCell>
+                      <TableCell align="center">{user.status}</TableCell>
                       <TableCell align="center">
                         {localStorage.getItem("usertype") !== "employee" ? (
                           <Button
