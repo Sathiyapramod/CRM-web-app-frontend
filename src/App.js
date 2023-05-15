@@ -16,6 +16,7 @@ import Verification from "./Components/Verification";
 import Updatepassword from "./Components/Updatepassword";
 import { useState } from "react";
 import Footer from "./Components/Footer";
+import CreateService from "./Components/DashboardContent/CreateService";
 
 function App() {
   const navigate = useNavigate();
@@ -122,6 +123,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Adduser />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/createservice"
+            element={
+              <ProtectedRoute>
+                <CreateService />
               </ProtectedRoute>
             }
           />

@@ -23,6 +23,7 @@ function Service() {
       method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
+        usertype: localStorage.getItem("usertype"),
       },
     })
       .then((response) => response.json())
@@ -36,10 +37,23 @@ function Service() {
   return (
     <div>
       {services ? (
-        <Paper sx={{ width: 950 }} className="mx-auto mt-5">
+        <Paper
+          sx={{ width: 950 }}
+          className="mx-auto mt-5 rounded-3 pb-3"
+          elevation={6}
+        >
           <TableContainer>
             <Table sx={{ minWidth: 300 }}>
               <TableHead>
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="fs-5 bg-light fw-bolder"
+                    align="center"
+                  >
+                    Service Requests
+                  </TableCell>
+                </TableRow>
                 <TableRow>
                   {[
                     "#",
@@ -49,7 +63,11 @@ function Service() {
                     "See Workflow Action",
                   ].map((element, index) => {
                     return (
-                      <TableCell key={index} align="center">
+                      <TableCell
+                        key={index}
+                        align="center"
+                        className="fw-bolder fs-5"
+                      >
                         {element}
                       </TableCell>
                     );
@@ -60,53 +78,63 @@ function Service() {
                 {services.map((user, index) => {
                   return (
                     <TableRow key={index}>
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell>{user.RequestName}</TableCell>
-                      <TableCell>{user.Createdby}</TableCell>
-                      <TableCell>{user.Status}</TableCell>
-                      <TableCell>
-                        <Button
-                          color="primary"
-                          onClick={() => {
-                            setStatus("Completed");
-                            const newStatus = { Status: status };
-                            fetch(`${API}/service/${user._id}`, {
-                              method: "PUT",
-                              body: JSON.stringify(newStatus),
-                              headers: {
-                                "Content-type": "application/json",
-                                "x-auth-token": localStorage.getItem("token"),
-                              },
-                            })
-                              .then((response) => response.json())
-                              .then(() => {
-                                alert(`Approved Request no. ${user._id}`);
-                                getServices();
-                              });
-                          }}
-                        >
-                          Approve
-                        </Button>
-                        <Button
-                          color="error"
-                          onClick={() => {
-                            setStatus("Cancelled");
-                            const newStatus = { Status: status };
-                            fetch(`${API}/service/${user._id}`, {
-                              method: "DELETE",
-                              headers: {
-                                "x-auth-token": localStorage.getItem("token"),
-                              },
-                            })
-                              .then((response) => response.json())
-                              .then(() => {
-                                alert(`Deleted Request no. ${user._id}`);
-                                getServices();
-                              });
-                          }}
-                        >
-                          Cancel
-                        </Button>
+                      <TableCell align="center">{index + 1}</TableCell>
+                      <TableCell align="center">{user.RequestName}</TableCell>
+                      <TableCell align="center">{user.Createdby}</TableCell>
+                      <TableCell align="center">{user.Status}</TableCell>
+                      <TableCell align="center">
+                        {localStorage.getItem("usertype") !== "employee" ? (
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={() => {
+                              setStatus("Completed");
+                              const newStatus = { Status: status };
+                              fetch(`${API}/service/${user._id}`, {
+                                method: "PUT",
+                                body: JSON.stringify(newStatus),
+                                headers: {
+                                  "Content-type": "application/json",
+                                  "x-auth-token": localStorage.getItem("token"),
+                                },
+                              })
+                                .then((response) => response.json())
+                                .then(() => {
+                                  alert(`Approved Request no. ${user._id}`);
+                                  getServices();
+                                });
+                            }}
+                          >
+                            Approve
+                          </Button>
+                        ) : (
+                          <Button color="primary" variant="contained" disabled>
+                            Approve
+                          </Button>
+                        )}
+                        {localStorage.getItem("usertype") !== "employee" && (
+                          <Button
+                            color="error"
+                            onClick={() => {
+                              setStatus("Cancelled");
+                              const newStatus = { Status: status };
+                              fetch(`${API}/service/${user._id}`, {
+                                method: "POST",
+                                body: JSON.stringify(newStatus),
+                                headers: {
+                                  "x-auth-token": localStorage.getItem("token"),
+                                },
+                              })
+                                .then((response) => response.json())
+                                .then(() => {
+                                  alert(`Deleted Request no. ${user._id}`);
+                                  getServices();
+                                });
+                            }}
+                          >
+                            Cancel
+                          </Button>
+                        )}
                       </TableCell>
                     </TableRow>
                   );
@@ -114,6 +142,15 @@ function Service() {
               </TableBody>
             </Table>
           </TableContainer>
+          <br />
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            Go Back
+          </Button>
         </Paper>
       ) : (
         <div className="d-flex flex-column justify-content-center align-items-center">

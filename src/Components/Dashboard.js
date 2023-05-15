@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { API } from "../General/General";
 import Usertable from "./DashboardContent/Usertable";
+import ServiceRequest from "./DashboardContent/ServiceRequest";
 
 function Dashboard() {
   const [usercount, setusercount] = useState(0);
@@ -62,6 +63,18 @@ function Dashboard() {
           {localStorage.getItem("lastname").toUpperCase()}
         </span>
       </span>
+      <div className="row">
+        <div
+          className="col text-end position-absolute"
+          style={{ inset: "5.5rem 0 0 -1rem" }}
+        >
+          <Link to="/createservice">
+            <Button variant="contained" sx={{ backgroundColor: "#132850" }}>
+              + Create Service Req.
+            </Button>
+          </Link>
+        </div>
+      </div>
       <div className="container d-flex flex-row flex-wrap justify-content-between align-items-center py-4 gap-4">
         {[
           {
@@ -108,7 +121,7 @@ function Dashboard() {
       </div>
       <div className="d-flex flex-row justify-content-center align-items-center gap-5 p-1">
         <Usertable />
-        
+        <ServiceRequest />
       </div>
     </div>
   );
