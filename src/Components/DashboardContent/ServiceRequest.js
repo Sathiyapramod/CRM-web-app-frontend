@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API } from "../../General/General";
 import { Link } from "react-router-dom";
 import { Paper } from "@mui/material";
 
@@ -8,7 +9,20 @@ function ServiceRequest() {
   const [completed, setCompleted] = useState(0);
   const [open, setOpen] = useState(0);
 
-  // useEffect(() => {}, []);
+  const getServiceRequests = () => {
+    fetch(`${API}/service`, {
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+        usertype: localStorage.getItem("usertype"),
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      });
+  };
+
+  useEffect(() => getServiceRequests(), []);
 
   return (
     <div>
@@ -53,7 +67,10 @@ function ServiceRequest() {
                 </Paper>
               );
             })}
-            <Link to="/service" className="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+            <Link
+              to="/service"
+              className="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            >
               See More...
             </Link>
           </div>

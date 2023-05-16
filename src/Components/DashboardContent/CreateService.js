@@ -8,17 +8,90 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
+import Snackbar from "@mui/material/Snackbar";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Alert from "@mui/material/Alert";
 
 function CreateService() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [approver, setApprover] = useState("");
+  const [usersinWorkflow, setUsersinWorkflow] = useState([]);
+  const [flag, setFlag] = useState(false);
 
-  useEffect(() => {}, []);
+  const getWorkflow = () => {
+    fetch(`${API}/workflow/get/`, {
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+        usertype: localStorage.getItem("usertype"),
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setUsersinWorkflow(
+          result.filter((users) => {
+            return users.empName !== localStorage.getItem("firstname");
+          })
+        );
+      });
+  };
+
+  const sendRequest = () => {
+    const newServiceRequest = {
+      isCreated: 0,
+      isReleased: 0,
+      isCompleted: 0,
+      isOpen: 0,
+      name,
+      description,
+      date,
+    };
+
+    console.log(newServiceRequest);
+
+    fetch(`${API}/service/`, {
+      method: "POST",
+      body: JSON.stringify(newServiceRequest),
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+        usertype: localStorage.getItem("usertype"),
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      });
+
+    fetch(`${API}/workflow/get/${approver}`, {
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+        usertype: localStorage.getItem("usertype"),
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        let receiverID = result._id;
+        fetch(`${API}/workflow/addition/${receiverID}`, {
+          method: "PUT",
+          body: JSON.stringify(newServiceRequest),
+          headers: {
+            "x-auth-token": localStorage.getItem("token"),
+            usertype: localStorage.getItem("usertype"),
+          },
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            // console.log(result);
+            setFlag(true);
+          });
+      });
+  };
+
+  useEffect(() => {
+    getWorkflow();
+  }, []);
   return (
     <div
       className="container-fluid mx-auto d-flex justify-content-center align-items-center"
@@ -30,7 +103,7 @@ function CreateService() {
         </div>
         <div className="card-body">
           <div className="d-flex flex-row justify-content-between align-items-center container-fluid">
-            <span className="">
+            <span>
               <TextField
                 label="Name"
                 name="Name"
@@ -39,7 +112,7 @@ function CreateService() {
                 }}
               />
             </span>
-            <span className="">
+            <span>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   defaultValue={dayjs("2023-04-17")}
@@ -60,30 +133,56 @@ function CreateService() {
               rows={4}
               color="secondary"
               sx={{ width: "75%" }}
+              onChange={(event) => setDescription(event.target.value)}
             />
           </span>
-          <br /><br />
+          <br />
+          <br />
           <span className="d-flex flex-row justify-content-between align-items-center container">
             <FormControl required sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="approver-label">Select Approver</InputLabel>
               <Select
                 labelId="approver-label"
                 id="approver-select"
-                value={approver}
                 label="Age *"
+                value={approver}
                 onChange={(event) => {
                   setApprover(event.target.value);
                 }}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="Steve">Steve</MenuItem>
-                <MenuItem value="Sunny">Sunny</MenuItem>
-                <MenuItem value="Rolex">Rolex</MenuItem>
+                {usersinWorkflow.map((users, index) => {
+                  return (
+                    <MenuItem key={index} value={users._id}>
+                      {users.empName}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
-            <Button variant="contained">Send</Button>
+            <Button variant="contained" onClick={sendRequest}>
+              Send
+            </Button>
+            {flag && (
+              <Snackbar
+                open={flag}
+                autoHideDuration={6000}
+                onClose={(event, reason) => {
+                  if (reason === "clickaway") return;
+                  setFlag(false);
+                }}
+              >
+                <Alert
+                  severity="success"
+                  variant="filled"
+                  onClose={(event, reason) => {
+                    if (reason === "clickaway") return;
+                    setFlag(false);
+                  }}
+                >
+                  Service Request Sent Succesfully !
+                </Alert>
+              </Snackbar>
+            )}
           </span>
         </div>
       </div>

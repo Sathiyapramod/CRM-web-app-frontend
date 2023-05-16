@@ -19,7 +19,7 @@ function Service() {
   const [status, setStatus] = useState("created");
 
   const getServices = () => {
-    fetch(`${API}/service`, {
+    fetch(`${API}/service/`, {
       method: "GET",
       headers: {
         "x-auth-token": localStorage.getItem("token"),
@@ -57,8 +57,8 @@ function Service() {
                   {[
                     "#",
                     "Request Name",
-                    "Created by",
-                    "Status",
+                    "Description",
+                    "Date",
                     "See Workflow Action",
                   ].map((element, index) => {
                     return (
@@ -79,8 +79,10 @@ function Service() {
                     <TableRow key={index}>
                       <TableCell align="center">{index + 1}</TableCell>
                       <TableCell align="center">{user.name}</TableCell>
-                      <TableCell align="center">{user.Createdby}</TableCell>
-                      <TableCell align="center">{user.status}</TableCell>
+                      <TableCell align="center">{user.description}</TableCell>
+                      <TableCell align="center">
+                        {user.date.slice(0, 10)}
+                      </TableCell>
                       <TableCell align="center">
                         {localStorage.getItem("usertype") !== "employee" ? (
                           <Button

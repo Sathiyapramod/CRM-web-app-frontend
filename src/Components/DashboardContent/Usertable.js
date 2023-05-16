@@ -14,7 +14,7 @@ function Usertable() {
       .then((response) => response.json())
       .then((result) => {
         setUsers(result);
-        console.log(result);
+        // console.log(result);
       });
   };
 
