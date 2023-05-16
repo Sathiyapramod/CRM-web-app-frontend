@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import { API } from "../../General/General";
@@ -14,6 +15,7 @@ import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 
 function CreateService() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -74,6 +76,7 @@ function CreateService() {
       .then((response) => response.json())
       .then((result) => {
         let receiverID = result._id;
+        console.log(result);
         fetch(`${API}/workflow/addition/${receiverID}`, {
           method: "PUT",
           body: JSON.stringify(newServiceRequest),
@@ -87,6 +90,9 @@ function CreateService() {
           .then((result) => {
             // console.log(result);
             setFlag(true);
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 3000);
           });
       });
   };
@@ -167,7 +173,7 @@ function CreateService() {
             {flag && (
               <Snackbar
                 open={flag}
-                autoHideDuration={6000}
+                autoHideDuration={3000}
                 onClose={(event, reason) => {
                   if (reason === "clickaway") return;
                   setFlag(false);

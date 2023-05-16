@@ -7,7 +7,6 @@ import Usertable from "./DashboardContent/Usertable";
 import ServiceRequest from "./DashboardContent/ServiceRequest";
 
 function Dashboard() {
-  
   const [usercount, setusercount] = useState(0);
   const [leadcount, setleadcount] = useState(0);
   const [servicecount, setservicecount] = useState(0);
@@ -71,7 +70,9 @@ function Dashboard() {
         >
           <Link to="/createservice">
             <Button variant="contained" sx={{ backgroundColor: "#132850" }}>
-              + Create Service Req.
+              {localStorage.getItem("usertype") === "employee"
+                ? "+ Create Service Req."
+                : "View Requests"}
             </Button>
           </Link>
         </div>
