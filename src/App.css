@@ -8,6 +8,11 @@
   font-family: var(--primary-ff);
 }
 
+.header{
+  font-weight: bold;
+
+}
+
 .App {
   text-align: center;
   min-height: 100vh;
