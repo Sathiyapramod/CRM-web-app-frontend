@@ -8,6 +8,7 @@ function ServiceRequest() {
   const [released, setReleased] = useState(0);
   const [completed, setCompleted] = useState(0);
   const [open, setOpen] = useState(0);
+  const [workflowCount, setWorkflowCount] = useState(0);
 
   const getServiceRequests = () => {
     fetch(`${API}/service`, {
@@ -18,11 +19,31 @@ function ServiceRequest() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
       });
   };
 
-  useEffect(() => getServiceRequests(), []);
+  const getWorkflowrequests = () => {
+    fetch(`${API}/workflow/get/`, {
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+        usertype: localStorage.getItem("usertype"),
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        // console.log(result);
+        let finalCount = result.find((user) => {
+          return user.empName === localStorage.getItem("firstname");
+        });
+        // console.log(finalCount.workflow.length);
+        setWorkflowCount(finalCount.workflow.length);
+      });
+  };
+  useEffect(() => {
+    getServiceRequests();
+    getWorkflowrequests();
+  }, []);
 
   return (
     <div>
@@ -73,6 +94,21 @@ function ServiceRequest() {
             >
               See More...
             </Link>
+          </div>
+          <br />
+          <div className="rounded-3 shadow text-white d-flex justify-content-center align-items-center flex-wrap p-3">
+            <span
+              className="rounded-3 p-3"
+              style={{
+                width: "10rem",
+                height: "10rem",
+                backgroundColor: "#132850",
+              }}
+            >
+              PENDING REQUESTS
+              <br />
+              <span className="fw-bolder fs-1">{workflowCount}</span>
+            </span>
           </div>
         </div>
       </div>

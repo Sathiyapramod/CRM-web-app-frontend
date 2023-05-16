@@ -23,7 +23,7 @@ export default function Appbar() {
               <Button color="inherit">DASHBOARD</Button>
             </Link>
             <Link to="/adduser" style={LinkStyling}>
-              {localStorage.getItem("usertype") !== "employee" && (
+              {localStorage.getItem("usertype") === "admin" && (
                 <Button color="inherit">Add User</Button>
               )}
             </Link>
