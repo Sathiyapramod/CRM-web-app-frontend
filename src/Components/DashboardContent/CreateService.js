@@ -55,6 +55,7 @@ function CreateService() {
       method: "POST",
       body: JSON.stringify(newServiceRequest),
       headers: {
+        "Content-type": "application/json",
         "x-auth-token": localStorage.getItem("token"),
         usertype: localStorage.getItem("usertype"),
       },
@@ -77,6 +78,7 @@ function CreateService() {
           method: "PUT",
           body: JSON.stringify(newServiceRequest),
           headers: {
+            "Content-type": "application/json",
             "x-auth-token": localStorage.getItem("token"),
             usertype: localStorage.getItem("usertype"),
           },
