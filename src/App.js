@@ -17,6 +17,7 @@ import Updatepassword from "./Components/Updatepassword";
 import { useState } from "react";
 import Footer from "./Components/Footer";
 import CreateService from "./Components/DashboardContent/CreateService";
+import ViewWorkflow from "./Components/ViewWorkflow";
 
 function App() {
   const navigate = useNavigate();
@@ -134,6 +135,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/workflow" element={<ViewWorkflow />} />
         </Routes>
       </div>
       {window.location.pathname != "/" && <Footer />}

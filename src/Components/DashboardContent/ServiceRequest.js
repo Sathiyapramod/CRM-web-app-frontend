@@ -23,6 +23,12 @@ function ServiceRequest() {
       });
   };
 
+  const linkStyle={
+    color:"auto",
+    textDecoration:"none",
+
+  }
+
   const getWorkflowrequests = () => {
     fetch(`${API}/workflow/get/`, {
       headers: {
@@ -96,20 +102,22 @@ function ServiceRequest() {
             </Link>
           </div>
           <br />
-          <div className="rounded-3 shadow text-white d-flex justify-content-center align-items-center flex-wrap p-3">
-            <span
-              className="rounded-3 p-3"
-              style={{
-                width: "10rem",
-                height: "10rem",
-                backgroundColor: "#132850",
-              }}
-            >
-              PENDING REQUESTS
-              <br />
-              <span className="fw-bolder fs-1">{workflowCount}</span>
-            </span>
-          </div>
+          <Link to="/workflow" style={linkStyle}>
+            <div className="rounded-3 shadow text-white d-flex justify-content-center align-items-center flex-wrap p-3">
+              <span
+                className="rounded-3 p-3"
+                style={{
+                  width: "10rem",
+                  height: "10rem",
+                  backgroundColor: "#132850",
+                }}
+              >
+                PENDING REQUESTS
+                <br />
+                <span className="fw-bolder fs-1">{workflowCount}</span>
+              </span>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
