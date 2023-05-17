@@ -37,20 +37,20 @@ function ViewWorkflow() {
               <TableCell colSpan={4}>Pending Workflows</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell align="center">#</TableCell>
-              <TableCell align="center">Name</TableCell>
-              <TableCell align="center">Description</TableCell>
-              <TableCell align="center">Action</TableCell>
+              <TableCell align="center" className="fs-5">#</TableCell>
+              <TableCell align="center" className="fs-5">Name</TableCell>
+              <TableCell align="center" className="fs-5">Description</TableCell>
+              <TableCell align="center" className="fs-5">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {getWorkflow.map((workflow, index) => {
               return (
                 <TableRow key={index}>
-                  <TableCell align="center">{index + 1}</TableCell>
-                  <TableCell align="center">{workflow.name}</TableCell>
-                  <TableCell align="center">{workflow.description}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className="fs-5">{index + 1}</TableCell>
+                  <TableCell align="center" className="fs-5">{workflow.name}</TableCell>
+                  <TableCell align="center" className="fs-5">{workflow.description}</TableCell>
+                  <TableCell align="center" className="fs-5">
                     <Button variant="contained">Approve</Button>
                   </TableCell>
                 </TableRow>
