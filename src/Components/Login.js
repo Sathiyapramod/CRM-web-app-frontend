@@ -75,7 +75,7 @@ function UserCredentials() {
         </span>
         <br />
         <span>
-          For Users, use Username : <b>john</b> and password as 456789
+          For Users, use Username : <b>john</b> and password as <b>456789</b>
         </span>
       </span>
     </div>
