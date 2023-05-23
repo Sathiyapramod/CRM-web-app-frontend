@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../General/General";
 
 function Verification() {
   const navigate = useNavigate();
+  const {id} = useParams()
   const [rn, setRandom] = useState("");
   return (
     <div>
@@ -22,7 +23,7 @@ function Verification() {
             const data = {
               random: rn,
             };
-            fetch(`${API}/verification`, {
+            fetch(`${API}/verification/${id}`, {
               method: "POST",
               body: JSON.stringify(data),
               headers: {
@@ -35,7 +36,7 @@ function Verification() {
               })
               .then((result) => {
                 alert("One-time-Password matched !!!");
-                navigate(`/updatepassword`);
+                navigate(`/updatepassword/${id}`);
               });
           }}
         >
