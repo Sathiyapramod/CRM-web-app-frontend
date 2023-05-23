@@ -21,13 +21,14 @@ function Forgotpassword() {
           </div>
           <div>
             <Button
+              variant="contained"
               onClick={() => {
                 const data = {
                   email: email,
                 };
                 fetch(`${API}/forgotpassword`, {
                   method: "POST",
-                  body: JSON(data),
+                  body: JSON.stringify(data),
                   headers: {
                     "content-type": "application/json",
                   },
@@ -35,7 +36,7 @@ function Forgotpassword() {
                   .then((response) => response.json())
                   .then((result) => {
                     console.log(result);
-                    navigate(`/verification/${result._id}`);
+                    navigate(`/verification`);
                   });
               }}
             >
