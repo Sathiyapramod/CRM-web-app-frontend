@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { API } from "../General/General";
 
 function Verification() {
-    const {id}= useParams();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [rn, setRandom] = useState("");
   return (
     <div>
       <label>Enter ONE-TIME PASSWORD</label>
       <div className="col-5">
         <input
-          type="email"
+          type="text"
           className="form-control me-2"
           onChange={(event) => setRandom(event.target.value)}
         />
@@ -32,14 +30,12 @@ function Verification() {
               },
             })
               .then((response) => {
-                if(response.status !== 200)
-                    console.log("error");
-                else 
-                    response.json();
+                if (response.status !== 200) console.log("error");
+                else response.json();
               })
               .then((result) => {
                 alert("One-time-Password matched !!!");
-                navigate(`/updatepassword/${id}`)
+                navigate(`/updatepassword`);
               });
           }}
         >
