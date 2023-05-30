@@ -77,7 +77,7 @@ function Dashboard() {
           </Link>
         </div>
       </div>
-      <div className="container d-flex flex-row flex-wrap justify-content-between align-items-center py-4 gap-4">
+      <div className="container d-flex flex-row flex-wrap justify-content-sm-center justify-content-center justify-content-lg-between align-items-center py-4 gap-4">
         {[
           {
             name: "Users",
