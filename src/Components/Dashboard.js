@@ -110,7 +110,11 @@ function Dashboard() {
         ].map((element, index) => {
           return (
             <Paper
-              sx={{ width: 300, height: 150, backgroundColor: element.color }}
+              sx={{
+                width: { xs: 250, sm: 350 },
+                height: 150,
+                backgroundColor: element.color,
+              }}
               elevation={6}
               key={index}
             >
