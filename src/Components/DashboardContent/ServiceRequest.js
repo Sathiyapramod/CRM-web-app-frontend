@@ -103,7 +103,7 @@ function ServiceRequest() {
           </div>
           <br />
           <Link to="/workflow" style={linkStyle}>
-            {/* <div className="rounded-3 shadow text-white d-flex justify-content-center align-items-center flex-wrap p-3">
+            <div className="rounded-3 shadow text-white d-flex justify-content-center align-items-center flex-wrap p-3">
               <span
                 className="rounded-3 p-3"
                 style={{
@@ -116,7 +116,7 @@ function ServiceRequest() {
                 <br />
                 <span className="fw-bolder fs-1">{workflowCount}</span>
               </span>
-            </div> */}
+            </div>
           </Link>
         </div>
       </div>
