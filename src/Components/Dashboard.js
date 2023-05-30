@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { API } from "../General/General";
 import Usertable from "./DashboardContent/Usertable";
 import ServiceRequest from "./DashboardContent/ServiceRequest";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import DashboardCustomizeSharpIcon from "@mui/icons-material/DashboardCustomizeSharp";
 
 function Dashboard() {
   const [usercount, setusercount] = useState(0);
@@ -106,11 +110,28 @@ function Dashboard() {
         ].map((element, index) => {
           return (
             <Paper
-              sx={{ width: 250, height: 150, backgroundColor: element.color }}
+              sx={{ width: 300, height: 150, backgroundColor: element.color }}
               elevation={6}
               key={index}
             >
-              <span className="fs-3">{element.name}</span>
+              <span className="fs-3 justify-content-center position-relative">
+                {element.name == "Users" && (
+                  <PersonSearchIcon fontSize="large" />
+                )}
+                {element.name == "Leads" && (
+                  <SupportAgentIcon fontSize="large" />
+                )}
+                {element.name == "Contacts" && (
+                  <ContactsIcon fontSize="large" />
+                )}
+                {element.name == "Service Requests" && (
+                  <DashboardCustomizeSharpIcon
+                    fontSize="large"
+                    className="top-0 bottom-0"
+                  />
+                )}
+                {element.name}
+              </span>
               <div className="fs-2">{element.count}</div>
               <span>
                 <Link to={element.data.link}>
