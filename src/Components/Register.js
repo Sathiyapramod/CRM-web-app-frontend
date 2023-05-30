@@ -35,7 +35,7 @@ function Register() {
         response.json();
       })
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         alert("User Added Successfully");
         navigate("/");
       });

@@ -54,6 +54,27 @@
   }
 }
 
+.toggled-menu {
+  position: fixed;
+  color: white;
+  background-color: #132850;
+  width: 150px;
+  height: 200px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  border-radius: 2px;
+  border: 0.25px solid grey;
+  z-index: 1;
+}
+
+.corner-button {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  padding: 1rem 0 0 0;
+}
+
 .main-login {
   display: flex;
   flex-direction: column;

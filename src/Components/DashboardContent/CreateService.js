@@ -51,7 +51,7 @@ function CreateService() {
       date,
     };
 
-    console.log(newServiceRequest);
+    // console.log(newServiceRequest);
 
     fetch(`${API}/service/`, {
       method: "POST",
@@ -64,7 +64,7 @@ function CreateService() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
       });
 
     fetch(`${API}/workflow/get/${approver}`, {
@@ -76,7 +76,7 @@ function CreateService() {
       .then((response) => response.json())
       .then((result) => {
         let receiverID = result._id;
-        console.log(result);
+        // console.log(result);
         fetch(`${API}/workflow/addition/${receiverID}`, {
           method: "PUT",
           body: JSON.stringify(newServiceRequest),

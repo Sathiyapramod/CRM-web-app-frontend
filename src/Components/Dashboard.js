@@ -121,7 +121,7 @@ function Dashboard() {
           );
         })}
       </div>
-      <div className="d-flex flex-row justify-content-center align-items-center gap-5 p-1">
+      <div className="d-flex flex-row justify-content-center align-items-start gap-lg-5 p-1 flex-wrap gap-sm-2 flex-lg-nowrap">
         <Usertable />
         <ServiceRequest />
       </div>
